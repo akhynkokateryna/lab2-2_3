@@ -5,6 +5,10 @@ import web_navigator
 
 app = Flask(__name__)
 
+@app.route('/')
+def map():
+    return render_template("index.html")
+
 @app.route("/redirecting", methods = ["POST"])
 def redirecting():
     if request.method == "POST":
