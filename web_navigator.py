@@ -1,6 +1,5 @@
 "web_navigator.py"
 
-from flask import Flask, render_template, request
 import folium
 from geopy import Nominatim
 import twitter2
@@ -41,4 +40,4 @@ def main(name):
         except ValueError:
             continue
 
-    new_map.save('your_map.html')
+    new_map.save('mysite/templates/new_map.html')
