@@ -22,24 +22,10 @@ def get_data(acct):
         if len(acct) < 1:
             break
         url = twurl.augment(TWITTER_URL,
-                            {'screen_name': acct, 'count': '5'})
+                            {'screen_name': acct})
 
         connection = urllib.request.urlopen(url, context=ctx)
         data = connection.read().decode()
 
         js = json.loads(data)
-        # return json.dumps(js, indent=2)
         return js
-
-        # print(dataset)
-
-        # headers = dict(connection.getheaders())
-        # print('Remaining', headers['x-rate-limit-remaining'])
-
-        # for u in js['users']:
-        #     print(u['screen_name'])
-        #     if 'status' not in u:
-        #         print('   * No status found')
-        #         continue
-        #     s = u['status']['text']
-        #     print('  ', s[:50])
