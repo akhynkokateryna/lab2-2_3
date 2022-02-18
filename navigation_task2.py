@@ -6,7 +6,6 @@ import twitter2
 def navigate(dataset):
     "Creates a navigation in a JSON file based on user's input"
     current_data = dataset
-    print(type(current_data))
     while True:
         if isinstance(current_data, str):
             print("Here is your data", current_data)
