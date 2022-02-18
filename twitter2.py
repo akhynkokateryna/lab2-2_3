@@ -1,10 +1,10 @@
+"twitter2.py"
+
 import urllib.request, urllib.parse, urllib.error
 import twurl
 import json
 import ssl
 
-# https://apps.twitter.com/
-# Create App and get the four strings, put them in hidden.py
 
 TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
 
@@ -13,26 +13,33 @@ ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
-while True:
-    print('')
-    acct = input('Enter Twitter Account:')
-    if (len(acct) < 1): break
-    url = twurl.augment(TWITTER_URL,
-                        {'screen_name': acct, 'count': '5'})
-    print('Retrieving', url)
-    connection = urllib.request.urlopen(url, context=ctx)
-    data = connection.read().decode()
+def get_data(acct):
 
-    js = json.loads(data)
-    print(json.dumps(js, indent=2))
+    "Gets data from Twitter"
 
-    headers = dict(connection.getheaders())
-    print('Remaining', headers['x-rate-limit-remaining'])
+    while True:
 
-    for u in js['users']:
-        print(u['screen_name'])
-        if 'status' not in u:
-            print('   * No status found')
-            continue
-        s = u['status']['text']
-        print('  ', s[:50])
+        if len(acct) < 1:
+            break
+        url = twurl.augment(TWITTER_URL,
+                            {'screen_name': acct, 'count': '5'})
+
+        connection = urllib.request.urlopen(url, context=ctx)
+        data = connection.read().decode()
+
+        js = json.loads(data)
+        # return json.dumps(js, indent=2)
+        return js
+
+        # print(dataset)
+
+        # headers = dict(connection.getheaders())
+        # print('Remaining', headers['x-rate-limit-remaining'])
+
+        # for u in js['users']:
+        #     print(u['screen_name'])
+        #     if 'status' not in u:
+        #         print('   * No status found')
+        #         continue
+        #     s = u['status']['text']
+        #     print('  ', s[:50])
